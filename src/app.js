@@ -3,6 +3,9 @@ const express = require('express')
 const hbs = require('hbs')
 const forecast = require('./utils/forecast')
 const geocode = require('./utils/geocode')
+const hostelscrape = require('./utils/hostelscrape')
+const trimhostelurl = require('./utils/trimhostelurl')
+
 
 
 const app = express()
@@ -29,7 +32,26 @@ app.get('', (req, res) => {
     })
 })
 
+// Actually our Hostel Route - TODO: Change Route Name
 app.get('/weather', (req, res) => {
+    if(!req.query.address){
+        return res.send("Please provide a hostel number")
+    }
+
+    let address = trimhostelurl(req.query.address)
+
+    hostelscrape(address, (error, {body} = {}) => {
+        if(error){
+            return res.send({ error })
+        }else{
+            res.send(body.reviews)
+        }
+    })
+
+
+})
+
+app.get('/test', (req, res) => {
     if(!req.query.address){
         return res.send("Please provide an address")
     }

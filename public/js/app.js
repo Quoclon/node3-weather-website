@@ -11,7 +11,7 @@ weatherForm.addEventListener('submit', (e) => {
     const url = '/weather?address='
     let location = search.value
     messageOne.textContent = 'Loading...'
-    messageTwo.textContent = ''
+    //messageTwo.textContent = ''
 
     fetch(url+location).then((response) => {
         response.json().then((data) => {
@@ -19,10 +19,21 @@ weatherForm.addEventListener('submit', (e) => {
                 messageOne.textContent = data.error
                 console.log(data.error)
             } else {
-                messageOne.textContent = data.location
-                messageTwo.textContent = data.forecast
-                console.log(data.location)
-                console.log(data.forecast)
+                //messageOne.textContent = data[0].notes
+                //console.log(data[0].notes)
+
+                for (var i = 0; i < data.length; i++) {
+                    var review = data[i];
+                    var ul = document.getElementById("friendsList");
+                    var li = document.createElement('li');
+                    li.appendChild(document.createTextNode(review.notes));
+                    ul.appendChild(li);
+                }
+
+
+                //messageTwo.textContent = data.forecast
+                //console.log(data.location)
+                //console.log(data.forecast)
             }
         })
     })
