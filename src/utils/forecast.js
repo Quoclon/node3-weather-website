@@ -13,7 +13,7 @@ const forecast = (lat, lon, callback) => {
     } else if (body.error){
         callback('Unable to find location ' + body.error, undefined)
     } else {
-        callback(error, body.daily.data[0].summary + ' with ' + body.daily.data[0].precipProbability + ' chance of rain')
+        callback(error, body.daily.data[0].summary + ' with ' + body.daily.data[0].precipProbability + ' chance of rain' + ' with windspeed of ' + body.daily.data[0].windSpeed)
     }   
 
     })
