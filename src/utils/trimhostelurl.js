@@ -4,7 +4,7 @@ const trimhostelurl = (hostel_url) => {
     url = hostel_url
 
     var regex = /[^\/]+$/;
-    var strToMatch = "https://www.hostelworld.com/hosteldetails.php/HI-Nanaimo-Painted-Turtle-Guesthouse/Nanaimo/7805?dateFrom=2019-09-29&dateTo=2019-10-02&number_of_guests=2&sc_pos=1";
+    var strToMatch = hostel_url;
     var matched = regex.exec(strToMatch); 
     console.log(typeof matched[0])
     console.log(matched[0])
@@ -17,6 +17,6 @@ const trimhostelurl = (hostel_url) => {
     return number[1]
 }
 
-trimhostelurl('https://www.hostelworld.com/hosteldetails.php/HI-Nanaimo-Painted-Turtle-Guesthouse/Nanaimo/7805?dateFrom=2019-09-29&dateTo=2019-10-02&number_of_guests=2&sc_pos=1')
+//trimhostelurl('https://www.hostelworld.com/hosteldetails.php/HI-Nanaimo-Painted-Turtle-Guesthouse/Nanaimo/7805?dateFrom=2019-09-29&dateTo=2019-10-02&number_of_guests=2&sc_pos=1')
 
 module.exports = trimhostelurl

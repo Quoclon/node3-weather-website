@@ -32,51 +32,53 @@ app.get('', (req, res) => {
     })
 })
 
+reviewArray = []
+
 // Actually our Hostel Route - TODO: Change Route Name
-app.get('/weather', (req, res) => {
-    if(!req.query.address){
+app.get('/reviews', (req, res) => {
+    if(!req.query.property){
         return res.send("Please provide a hostel number")
     }
 
-    let address = trimhostelurl(req.query.address)
+    let property = trimhostelurl(req.query.property)
+    let page = '1'
 
-    hostelscrape(address, (error, {body} = {}) => {
+    hostelscrape(property, page,  (error, {body} = {}) => {
         if(error){
+            console.log("ERROR")
             return res.send({ error })
         }else{
             res.send(body.reviews)
         }
     })
-
-
 })
 
-app.get('/test', (req, res) => {
-    if(!req.query.address){
-        return res.send("Please provide an address")
-    }
+// app.get('/weather', (req, res) => {
+//     if(!req.query.address){
+//         return res.send("Please provide an address")
+//     }
 
-    geocode(req.query.address, (error, {latitude, longitude, location} = {}) =>{
-        if(error){
-            return res.send({ error })
-        }
+//     geocode(req.query.address, (error, {latitude, longitude, location} = {}) =>{
+//         if(error){
+//             return res.send({ error })
+//         }
         
-        forecast(latitude, longitude, (error, forecastData) => {
-            if(error){
-                return res.send({ error })
-            }
+//         forecast(latitude, longitude, (error, forecastData) => {
+//             if(error){
+//                 return res.send({ error })
+//             }
             
-            res.send({
-                address: req.query.address,
-                location,
-                forecast: forecastData,
-                latitude,
-                longitude
-            })
+//             res.send({
+//                 address: req.query.address,
+//                 location,
+//                 forecast: forecastData,
+//                 latitude,
+//                 longitude
+//             })
   
-          })
-    })
-})
+//           })
+//     })
+// })
 
 app.get('/about', (req, res) => {
     res.render('about', {
