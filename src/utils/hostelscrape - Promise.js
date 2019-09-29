@@ -2,7 +2,6 @@ const request = require('request')
 const rp = require('request-promise')
 
 
-
 const hostelscrape1 = (number, page, callback) => {
 
         let url = 'https://www.hostelworld.com/properties/' + encodeURI(number) + '/reviews?' + 'sort=' + 'newest' + '&allLanguages=' + 'false' + '&page=' + page + '&monthCount=' + '36'
@@ -23,49 +22,35 @@ const hostelscrape1 = (number, page, callback) => {
             }
         })
     }
-    
 
-    
  async function hostelscrape(number, page) {
     
-    let reviewArray = []
-   
+    let dataArray = []
+    let newarray = []
+    let finalarray = []
 
-    for(i = 1; i <= page; i++){
+    for(i=1; i<4; i++){
         try {
             let a = await rp({url:'https://www.hostelworld.com/properties/' + encodeURI(number) + '/reviews?' + 'sort=' + 'newest' + '&allLanguages=' + 'false' + '&page=' + String(i) + '&monthCount=' + '36', json:true})
-
             //console.log(a.reviews)
-            for(x=0; x<a.reviews.length;x++){
-                //console.log(a.reviews[x].notes)
-                // reviewArray.push({
-                //     notes: a.reviews[x].notes
-                // })
-                reviewArray.push(i + ' - ' + x + ' - ' + a.reviews[x].notes)
-            }
-            
-            
-            //console.log(a.reviews)
-            // dataArray.push({
-            //     reviews: a.reviews
-            // })
+            dataArray.push({
+                reviews: a.reviews
+            })
          } catch (e) {
             console.error(e)
          }  
     }
     
-    console.log(reviewArray)
-    return(reviewArray)
+    let body = dataArray[0].reviews
 
-    //return dataArray[0].reviews
+    return body
+    
+    //console.log(dataArray[0].reviews[0].notes)
+    //dataArray[0].forEach((data) => console.log(data.notes))
+    //console.log('Data Array: ' + dataArray[0].notes)
 } 
 
+// hostelscrape('40564', '1')
 
-// hostelscrape('40564', 1)
-
-// let hostelNumber = '270304'
-// hostelscrape(hostelNumber, callback => {
-//     console.log('true')
-// })
 
 module.exports = hostelscrape

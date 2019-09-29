@@ -35,23 +35,44 @@ app.get('', (req, res) => {
 reviewArray = []
 
 // Actually our Hostel Route - TODO: Change Route Name
-app.get('/reviews', (req, res) => {
+// app.get('/reviews', (req, res) => {
+//     if(!req.query.property){
+//         return res.send("Please provide a hostel number")
+//     }
+
+//     let property = trimhostelurl(req.query.property)
+//     let page = '1'
+
+//     hostelscrape(property, page,  (error, {body} = {}) => {
+//         if(error){
+//             console.log("ERROR")
+//             return res.send({ error })
+//         }else{
+//             res.send(body.reviews)
+//         }
+//     })
+// })
+
+// app.get("/getdata", async function(req, res){  
+//     var data = await pullData();
+//     var filteredData = await filterByYear(data);
+//     res.json(filteredData);
+//  })
+
+app.get('/reviews', async function(req, res){  
     if(!req.query.property){
         return res.send("Please provide a hostel number")
     }
 
-    let property = trimhostelurl(req.query.property)
-    let page = '1'
+    let property = await trimhostelurl(req.query.property)
+    let page = 3
 
-    hostelscrape(property, page,  (error, {body} = {}) => {
-        if(error){
-            console.log("ERROR")
-            return res.send({ error })
-        }else{
-            res.send(body.reviews)
-        }
-    })
+    let reviews = await hostelscrape(property, page)
+    //console.log("BIG TEST: " + reviews)
+    res.send(reviews)
+
 })
+
 
 // app.get('/weather', (req, res) => {
 //     if(!req.query.address){

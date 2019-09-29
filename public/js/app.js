@@ -23,13 +23,14 @@ weatherForm.addEventListener('submit', (e) => {
                 //messageOne.textContent = data[0].notes
                 messageOne.textContent = 'Reviews:'
                 
-                console.log(data[0].notes)
+                //console.log(data[0].notes)
 
                 for (var i = 0; i < data.length; i++) {
                     var review = data[i];
                     var ul = document.getElementById("reviewList");
                     var li = document.createElement('li');
-                    li.appendChild(document.createTextNode(review.notes));
+                    // li.appendChild(document.createTextNode(review.notes));
+                    li.appendChild(document.createTextNode(review));
                     ul.appendChild(li);
                 }
 
